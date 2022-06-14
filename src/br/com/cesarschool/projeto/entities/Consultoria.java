@@ -1,17 +1,36 @@
-package br.com.cesarschool.projeto;
+package src.br.com.cesarschool.projeto.entities;
 
 import java.util.Scanner;
 
 public class Consultoria {
         private static final Scanner INPUT = new Scanner(System.in);
 
-        public void realizarConsultoria(User user) {
+        private int pontuacao;
+        private boolean avaliado;
+
+        public int getPontuacao() {
+                return pontuacao;
+        }
+
+        public boolean isAvaliado() {
+                return avaliado;
+        }
+
+        public void setPontuacao(int pontuacao) {
+                this.pontuacao = pontuacao;
+        }
+
+        public void setAvaliado(boolean avaliado) {
+                this.avaliado = avaliado;
+        }
+
+        public void realizarConsultoria() {
                 int reposta1;
                 int reposta2;
                 int reposta3;
 
                 System.out.println(
-                                "O modelo de negócio busca em seus produtos ou serviços solucionar algum problema socioambiental?");
+                                "\nO modelo de negócio busca em seus produtos ou serviços solucionar algum problema socioambiental?");
                 System.out.println("0 - Nenhum");
                 System.out.println("1 - Um");
                 System.out.println("2 - Dois");
@@ -44,11 +63,11 @@ public class Consultoria {
 
                 reposta3 = INPUT.nextInt();
 
-                user.setResultadoConsultoria((int) Math.floor(Math.random() * 1000));
-                user.setAvaliado(true);
+                this.setPontuacao((int) Math.floor(Math.random() * 999) + 1);
+                this.setAvaliado(true);
 
                 System.out.println(
-                                "\nObrigado por responder ate aqui! Seu questionário foi enviado para análise mas sua pontuação porvisória é: "
-                                                + user.getResultadoConsultoria());
+                                "Obrigado por responder ate aqui! Seu questionário foi enviado para análise mas sua pontuação porvisória é: "
+                                                + this.getPontuacao());
         }
 }

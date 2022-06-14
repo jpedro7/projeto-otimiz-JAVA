@@ -1,10 +1,12 @@
-package br.com.cesarschool.projeto;
+package src.br.com.cesarschool.projeto;
 
 import java.util.Scanner;
 
+import src.br.com.cesarschool.projeto.entities.User;
+import src.br.com.cesarschool.projeto.repositorys.RepositorioUsers;
+
 public class ProgramaConsultoria {
 	private static final Scanner INPUT = new Scanner(System.in);
-	private static final Consultoria CONSULTORIA = new Consultoria();
 
 	public static void main(String[] args) {
 		RepositorioUsers repositorioUsers = new RepositorioUsers();
@@ -24,7 +26,11 @@ public class ProgramaConsultoria {
 				System.out.println("0 - Encerrar programa");
 				System.out.print("Sua escolha: ");
 
-				option = INPUT.nextInt();
+				try {
+					option = INPUT.nextInt();
+				} catch (Exception e) {
+					System.out.println("\nErro! Opção inválida!");
+				}
 
 				if (option == 1) {
 					System.out.print("Username: ");
@@ -48,9 +54,10 @@ public class ProgramaConsultoria {
 					password = INPUT.next();
 
 					response = repositorioUsers.cadastrar(id, username, password);
+
 					if (response) {
 						System.out.println("\nUsuário cadastrado com sucesso!");
-						user = new User(id, username, password);
+						user = repositorioUsers.getUserByUsername(username);
 						isLogged = true;
 						id++;
 					} else {
@@ -63,7 +70,7 @@ public class ProgramaConsultoria {
 
 				System.out.println();
 			} else {
-				System.out.println("Logado: " + username);
+				System.out.println("Usuário atual: " + user.getUsername());
 				System.out.println("Selecione uma das opções abaixo");
 				System.out.println("1 - Realizar consultoria");
 				System.out.println("2 - Ver resultado anterior");
@@ -71,13 +78,18 @@ public class ProgramaConsultoria {
 				System.out.println("0 - Encerrar programa");
 				System.out.print("Sua escolha: ");
 
-				option = INPUT.nextInt();
+				try {
+					option = INPUT.nextInt();
+				} catch (Exception e) {
+					System.out.println("\nErro! Opção Inválida");
+				}
 
 				if (option == 1) {
-					CONSULTORIA.realizarConsultoria(user);
+					user.getConsultoria().realizarConsultoria();
 				} else if (option == 2) {
-					if (user.isAvaliado()) {
-						System.out.println("\nResultado anterior: " + user.getResultadoConsultoria());
+					if (user.getConsultoria().isAvaliado()) {
+						System.out.println("\nResultado anterior: "
+								+ user.getConsultoria().getPontuacao());
 					} else {
 						System.out.println("\nUsuário ainda não realizou nenhum consultoria!");
 					}

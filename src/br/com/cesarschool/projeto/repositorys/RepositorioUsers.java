@@ -1,4 +1,6 @@
-package br.com.cesarschool.projeto;
+package src.br.com.cesarschool.projeto.repositorys;
+
+import src.br.com.cesarschool.projeto.entities.User;
 
 public class RepositorioUsers {
         private static final int TAMANHO_MAXIMO = 1000;
@@ -16,8 +18,8 @@ public class RepositorioUsers {
                                 return false;
                         }
 
-                        if (username.equals(users[i].username)) {
-                                if (password.equals(users[i].password)) {
+                        if (username.equals(users[i].getIdentificador())) {
+                                if (password.equals(users[i].getPassword())) {
                                         return true;
                                 } else {
                                         return false;
@@ -37,7 +39,7 @@ public class RepositorioUsers {
                                         return true;
                                 }
 
-                                if (username.equals(users[i].username)) {
+                                if (username.equals(users[i].getIdentificador())) {
                                         return false;
                                 }
                         }
@@ -50,7 +52,7 @@ public class RepositorioUsers {
                 for (int i = 0; i < users.length; i++) {
                         if (users[i] == null) {
                                 return null;
-                        } else if (username.equals(users[i].username)) {
+                        } else if (username.equals(users[i].getIdentificador())) {
                                 return users[i];
                         }
                 }
